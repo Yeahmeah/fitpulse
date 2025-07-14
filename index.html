@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseFit | AI-Powered Fitness Platform</title>
+    <style>
+        :root {
+            --primary: #6C4DF6; /* Vibrant purple */
+            --secondary: #FF7D59; /* Coral orange */
+            --accent: #00E5CC; /* Teal */
+            --dark: #1A1A2E; /* Deep navy */
+            --light: #F8F9FF; /* Off-white */
+            --text: #33334D; /* Dark gray */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #5a3dd9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 77, 246, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 80px;
+            background: linear-gradient(135deg, #F8F9FF 0%, #E6E9FF 100%);
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .secondary-button {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .secondary-button:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .hero.jpg {
+            margin-top: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h3 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            background-color: var(--primary);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .feature-card h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #6C4DF6 0%, #8D6AFF 100%);
+            color: white;
+        }
+        
+        .how-it-works .section-title h3,
+        .how-it-works .section-title p {
+            color: white;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .step h4 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .pricing-card {
+            background-color: var(--light);
+            border-radius: 15px;
+            padding: 40px 30px;
+            width: 300px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            position: relative;
+            transform: scale(1.05);
+        }
+        
+        .popular-tag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .pricing-card h4 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .price span {
+            font-size: 16px;
+            color: var(--text);
+            font-weight: normal;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .testimonial-author h5 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-author p {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .testimonial-rating {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        /* Blog Section */
+        .blog {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .blog-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stepchallengeblog.jpg {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 20px;
+        }
+        
+        .blog-category {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .blog-card h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .blog-card p {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--secondary) 0%, #FF9A7D 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h5 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+        .hero {
+    background: linear-gradient(135deg, #F8F9FF 0%, #E6E9FF 100%), 
+                url('images/hero.jpeg') center/cover no-repeat;
+    padding: 180px 0;
+    text-align: center;
+    position: relative;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, #F8F9FF);
+    z-index: 1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="https://via.placeholder.com/40x40/6C4DF6/FFFFFF?text=PF" alt="PulseFit Logo">
+                    <h1>PulseFit</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#trainer">Trainer</a></li>
+                    <li><a href="#signin" class="cta-button">Sign In</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Your AI-Powered Fitness Revolution</h2>
+            <p>PulseFit combines cutting-edge AI technology with community motivation to transform your workouts. Get personalized training, compete with friends, and access top trainers - all in one platform.</p>
+            <div class="hero-buttons">
+                <a href="#" class="cta-button">Start Free Trial</a>
+                <a href="#" class="secondary-button">Learn More</a>
+            </div>
+            <img src="hero.jpg" alt="PulseFit App" class="hero-image">
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h3>Why PulseFit Stands Out</h3>
+                <p>Discover the features that make our platform the future of fitness</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="aiworkout.jpg" alt="AI Icon">
+                    </div>
+                    <h4>AI-Powered Workouts</h4>
+                    <p>Our advanced AI analyzes your performance and adapts your workouts in real-time for maximum results.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="stepchallenge.jpg" alt="Steps Icon">
+                    </div>
+                    <h4>Step Challenges</h4>
+                    <p>Compete with friends and the community in daily, weekly, and monthly step-based competitions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="music.jpg" alt="Music Icon">
+                    </div>
+                    <h4>Music Integration</h4>
+                    <p>Sync your favorite playlists that automatically adapt to your workout intensity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="trainer.jpg" alt="Trainer Icon">
+                    </div>
+                    <h4>Trainer Marketplace</h4>
+                    <p>Connect with certified trainers worldwide for personalized coaching sessions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="community.jpg" alt="Community Icon">
+                    </div>
+                    <h4>Vibrant Community</h4>
+                    <p>Join groups, share achievements, and get motivation from like-minded fitness enthusiasts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="sport analytics.jpg" alt="Analytics Icon">
+                    </div>
+                    <h4>Advanced Analytics</h4>
+                    <p>Detailed insights into your progress with actionable recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h3>How PulseFit Works</h3>
+                <p>Get started in just three simple steps</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Set Your Goals</h4>
+                    <p>Tell us your fitness objectives, preferences, and current level to create your personalized profile.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Get Your AI Coach</h4>
+                    <p>Our AI analyzes your data and creates a customized workout plan that evolves with you.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Start Your Journey</h4>
+                    <p>Join challenges, connect with trainers, and track your progress as you transform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h3>Simple, Transparent Pricing</h3>
+                <p>Choose the plan that fits your fitness journey</p>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h4>Starter</h4>
+                    <div class="price">$9.99<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Basic AI Workouts</li>
+                        <li>Step Tracking</li>
+                        <li>Community Access</li>
+                        <li>Limited Music Integration</li>
+                        <li>Basic Analytics</li>
+                    </ul>
+                    <a href="#" class="secondary-button">Get Started</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-tag">Most Popular</div>
+                    <h4>Pro</h4>
+                    <div class="price">$19.99<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Advanced AI Workouts</li>
+                        <li>Unlimited Challenges</li>
+                        <li>Full Music Integration</li>
+                        <li>Trainer Marketplace Access</li>
+                        <li>Detailed Analytics</li>
+                    </ul>
+                    <a href="#" class="cta-button">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h4>Elite</h4>
+                    <div class="price">$29.99<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Premium AI Workouts</li>
+                        <li>Personalized Trainer Matching</li>
+                        <li>Priority Support</li>
+                        <li>Exclusive Challenges</li>
+                        <li>Advanced Body Analytics</li>
+                    </ul>
+                    <a href="#" class="secondary-button">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h3>What Our Community Says</h3>
+                <p>Join thousands of satisfied users transforming their fitness</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="man.jpg" alt="User Avatar" class="testimonial-avatar">
+                        <div class="testimonial-author">
+                            <h5>Jamie Smith</h5>
+                            <p>Fitness Enthusiast</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p>"PulseFit completely changed my approach to fitness. The AI adapts to my energy levels and schedule, making every workout count. I've never been more consistent!"</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="man (2).jpg" alt="User Avatar" class="testimonial-avatar">
+                        <div class="testimonial-author">
+                            <h5>Marcus R.</h5>
+                            <p>Marathon Runner</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p>"The step challenges with my friends keep me motivated even on days I don't feel like training. The music integration is game-changing for my long runs."</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="woman.jpg" alt="User Avatar" class="testimonial-avatar">
+                        <div class="testimonial-author">
+                            <h5>Tina L.</h5>
+                            <p>Yoga Instructor</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">★★★★☆</div>
+                    <p>"As a trainer, the marketplace has connected me with amazing clients worldwide. The platform makes remote training seamless and effective."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog" id="blog">
+        <div class="container">
+            <div class="section-title">
+                <h3>From Our Blog</h3>
+                <p>Latest insights on fitness, technology, and wellness</p>
+            </div>
+            <div class="blog-posts">
+                <div class="blog-card">
+                    <img src="workout.jpg" alt="Blog Post" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Technology</span>
+                        <h4>How AI is Personalizing Fitness in 2023</h4>
+                        <p>Discover how machine learning algorithms are creating workout plans tailored to your unique physiology and goals...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="stepchallengeblog.jpg" alt="Blog Post" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Community</span>
+                        <h4>The Psychology Behind Step Challenges</h4>
+                        <p>Why competing with friends leads to 40% more steps per day and how to leverage this for your fitness journey...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="music.jpg" alt="Blog Post" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Performance</span>
+                        <h4>Optimizing Your Workout Playlist</h4>
+                        <p>Science reveals the perfect BPM for different workout intensities and how to sync your music with your training...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h3>Ready to Transform Your Fitness?</h3>
+            <p>Join PulseFit today and experience the future of personalized, motivational workouts.</p>
+            <a href="#" class="cta-button">Start Your 14-Day Free Trial</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <img src="https://via.placeholder.com/40x40/6C4DF6/FFFFFF?text=PF" alt="PulseFit Logo">
+                        <h1>PulseFit</h1>
+                    </div>
+                    <p>AI-powered fitness platform combining technology, community, and expert coaching for transformative results.</p>
+                    <div class="social-links">
+                        <a href="#"><img src="facebooklogo.jpg" alt="Facebook"></a>
+                        <a href="#"><img src="xlogo.jpg" alt="Twitter"></a>
+                        <a href="#"><img src="https://via.placeholder.com/20x20/FFFFFF/6C4DF6?text=I" alt="Instagram"></a>
+                        <a href="#"><img src="linkedinlogo.jpg" alt="LinkedIn"></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h5>Product</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Trainer Marketplace</a></li>
+                        <li><a href="#">App Download</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Research</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Company</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 PulseFit. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
